@@ -1,0 +1,232 @@
+/* =========================================================
+   VAADIN GLOBAL THEME — ELEGANT LIGHT + DARK (RGBA version)
+   ========================================================= */
+
+/* -------------------------
+   LIGHT THEME
+------------------------- */
+:root {
+  --lumo-font-family: Consolas, monospace;
+  --lumo-border-radius: 0.6rem;
+
+  /* Base */
+  --lumo-base-color: rgba(250, 250, 252, 1);
+  --lumo-body-text-color: rgba(20, 20, 22, 1);
+  --lumo-secondary-text-color: rgba(90, 90, 95, 1);
+  --lumo-contrast: rgba(0, 0, 0, 1);
+
+  /* Primary (muted indigo) */
+  --lumo-primary-color: rgba(98, 86, 196, 1);
+  --lumo-primary-color-50pct: rgba(98, 86, 196, 0.5);
+  --lumo-primary-color-10pct: rgba(98, 86, 196, 0.1);
+  --lumo-primary-text-color: rgba(255, 255, 255, 1);
+
+  /* Success (teal-green) */
+  --lumo-success-color: rgba(52, 199, 89, 1);
+  --lumo-success-color-50pct: rgba(52, 199, 89, 0.5);
+  --lumo-success-color-10pct: rgba(52, 199, 89, 0.1);
+  --lumo-success-text-color: rgba(255, 255, 255, 1);
+
+  /* Error (coral red) */
+  --lumo-error-color: rgba(230, 82, 82, 1);
+  --lumo-error-color-50pct: rgba(230, 82, 82, 0.5);
+  --lumo-error-color-10pct: rgba(230, 82, 82, 0.1);
+  --lumo-error-text-color: rgba(255, 255, 255, 1);
+
+  /* Warning (muted amber) */
+  --lumo-warning-color: rgba(245, 180, 50, 1);
+  --lumo-warning-color-50pct: rgba(245, 180, 50, 0.5);
+  --lumo-warning-color-10pct: rgba(245, 180, 50, 0.1);
+  --lumo-warning-text-color: rgba(0, 0, 0, 1);
+
+  /* Tint / Neutral / Accent */
+  --lumo-tint: rgba(240, 242, 247, 1);
+  --lumo-shade: rgba(0, 0, 0, 0.1);
+  --lumo-accent-color: rgba(116, 141, 166, 1);
+
+  /* Hover + Focus */
+  --lumo-hover-opacity: 0.2;
+  --lumo-clickable-opacity: 0.2;
+  --lumo-focus-ring-color: rgba(98, 86, 196, 0.3);
+  --lumo-focus-ring-width: 2px;
+
+  color-scheme: light;
+}
+
+/* -------------------------
+   DARK THEME
+------------------------- */
+[theme~="dark"] {
+  --lumo-base-color: rgba(25, 26, 28, 1);
+  --lumo-body-text-color: rgba(232, 233, 235, 1);
+  --lumo-secondary-text-color: rgba(160, 162, 165, 1);
+  --lumo-contrast: rgba(255, 255, 255, 1);
+
+  /* Primary (muted lavender) */
+  --lumo-primary-color: rgba(136, 120, 226, 1);
+  --lumo-primary-color-50pct: rgba(136, 120, 226, 0.5);
+  --lumo-primary-color-10pct: rgba(136, 120, 226, 0.1);
+  --lumo-primary-text-color: rgba(255, 255, 255, 1);
+
+  /* Success */
+  --lumo-success-color: rgba(74, 222, 128, 1);
+  --lumo-success-color-50pct: rgba(74, 222, 128, 0.5);
+  --lumo-success-color-10pct: rgba(74, 222, 128, 0.1);
+  --lumo-success-text-color: rgba(0, 0, 0, 1);
+
+  /* Error */
+  --lumo-error-color: rgba(239, 83, 80, 1);
+  --lumo-error-color-50pct: rgba(239, 83, 80, 0.5);
+  --lumo-error-color-10pct: rgba(239, 83, 80, 0.1);
+  --lumo-error-text-color: rgba(255, 255, 255, 1);
+
+  /* Warning */
+  --lumo-warning-color: rgba(255, 193, 7, 1);
+  --lumo-warning-color-50pct: rgba(255, 193, 7, 0.5);
+  --lumo-warning-color-10pct: rgba(255, 193, 7, 0.1);
+  --lumo-warning-text-color: rgba(0, 0, 0, 1);
+
+  /* Tint / Neutral / Accent */
+  --lumo-tint: rgba(35, 36, 38, 1);
+  --lumo-shade: rgba(255, 255, 255, 0.1);
+  --lumo-accent-color: rgba(135, 150, 160, 1);
+
+  --lumo-hover-opacity: 0.2;
+  --lumo-clickable-opacity: 0.2;
+  --lumo-focus-ring-color: rgba(136, 120, 226, 0.3);
+
+  color-scheme: dark;
+}
+
+/* =========================================================
+   BASE STYLES
+========================================================= */
+body,
+vaadin-app-layout {
+  background-color: var(--lumo-base-color);
+  color: var(--lumo-body-text-color);
+  font-family: var(--lumo-font-family);
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+vaadin-button {
+  border-radius: var(--lumo-border-radius);
+  font-family: var(--lumo-font-family);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+  transition: background 0.2s ease, transform 0.15s ease, border-color 0.2s ease;
+}
+
+/* Primary Button */
+vaadin-button[theme~="primary"] {
+  background: var(--lumo-primary-color);
+  color: var(--lumo-primary-text-color);
+}
+vaadin-button[theme~="primary"]:hover {
+  background: var(--lumo-primary-color-50pct);
+  transform: translateY(-1px);
+}
+
+/* Error Button */
+vaadin-button[theme~="error"] {
+  background: var(--lumo-error-color);
+  color: var(--lumo-error-text-color);
+}
+vaadin-button[theme~="error"]:hover {
+  background: var(--lumo-error-color-50pct);
+}
+
+/* Success Button */
+vaadin-button[theme~="success"] {
+  background: var(--lumo-success-color);
+  color: var(--lumo-success-text-color);
+}
+vaadin-button[theme~="success"]:hover {
+  background: var(--lumo-success-color-50pct);
+}
+
+/* Warning Button */
+vaadin-button[theme~="warning"] {
+  background: var(--lumo-warning-color);
+  color: var(--lumo-warning-text-color);
+}
+vaadin-button[theme~="warning"]:hover {
+  background: var(--lumo-warning-color-50pct);
+}
+
+/* Secondary Button */
+vaadin-button[theme~="secondary"] {
+  background: var(--lumo-accent-color);
+  color: var(--lumo-primary-text-color);
+}
+vaadin-button[theme~="secondary"]:hover {
+  background: rgba(116, 141, 166, 0.85);
+  transform: translateY(-1px);
+}
+
+/* Tertiary Button (fixed visibility) */
+vaadin-button[theme~="tertiary"] {
+  background: rgba(116, 141, 166, 0.08);
+  color: var(--lumo-accent-color);
+  border: 1px solid rgba(116, 141, 166, 0.3);
+}
+vaadin-button[theme~="tertiary"]:hover {
+  background: rgba(116, 141, 166, 0.15);
+  border-color: rgba(116, 141, 166, 0.5);
+  transform: translateY(-1px);
+}
+vaadin-button[theme~="tertiary"]:active {
+  background: rgba(116, 141, 166, 0.25);
+  border-color: rgba(116, 141, 166, 0.6);
+  transform: translateY(0);
+}
+
+/* Tertiary for Dark Theme */
+[theme~="dark"] vaadin-button[theme~="tertiary"] {
+  background: rgba(135, 150, 160, 0.15);
+  border-color: rgba(135, 150, 160, 0.4);
+  color: var(--lumo-accent-color);
+}
+[theme~="dark"] vaadin-button[theme~="tertiary"]:hover {
+  background: rgba(135, 150, 160, 0.25);
+  border-color: rgba(135, 150, 160, 0.6);
+}
+
+/* =========================================================
+   INPUT FIELDS
+========================================================= */
+vaadin-text-field,
+vaadin-email-field,
+vaadin-password-field,
+vaadin-number-field,
+vaadin-combo-box,
+vaadin-select {
+  font-family: var(--lumo-font-family);
+  --lumo-primary-text-color: var(--lumo-primary-color);
+  --lumo-body-text-color: var(--lumo-body-text-color);
+  --lumo-border-radius: var(--lumo-border-radius);
+}
+
+/* =========================================================
+   DIALOG
+========================================================= */
+vaadin-dialog-overlay::part(overlay) {
+  background: var(--lumo-tint);
+  color: var(--lumo-body-text-color);
+  border-radius: var(--lumo-border-radius);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+}
+.round-icon-btn {
+  --button-size: 36px; /* adjust as needed */
+  width: var(--button-size);
+  height: var(--button-size);
+  min-width: var(--button-size);
+  min-height: var(--button-size);
+  padding: 0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

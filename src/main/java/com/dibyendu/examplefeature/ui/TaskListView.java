@@ -1,6 +1,5 @@
 package com.dibyendu.examplefeature.ui;
 
-import com.dibyendu.base.ui.component.ViewToolbar;
 import com.dibyendu.examplefeature.Task;
 import com.dibyendu.examplefeature.TaskService;
 import com.vaadin.flow.component.button.Button;
@@ -23,7 +22,7 @@ import java.util.Optional;
 
 import static com.vaadin.flow.spring.data.VaadinSpringDataHelpers.toSpringPageRequest;
 
-@Route("")
+//@Route("")
 @PageTitle("Task List")
 @Menu(order = 0, icon = "vaadin:clipboard-check", title = "Task List")
 class TaskListView extends Main {
@@ -66,8 +65,6 @@ class TaskListView extends Main {
         setSizeFull();
         addClassNames(LumoUtility.BoxSizing.BORDER, LumoUtility.Display.FLEX, LumoUtility.FlexDirection.COLUMN,
                 LumoUtility.Padding.MEDIUM, LumoUtility.Gap.SMALL);
-
-        add(new ViewToolbar("Task List", ViewToolbar.group(description, dueDate, createBtn)));
         add(taskGrid);
     }
 

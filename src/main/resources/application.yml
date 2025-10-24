@@ -1,0 +1,16 @@
+server:
+  port: 4000
+
+vaadin:
+  launch-browser: true
+spring:
+  application:
+    name: vaadin101
+  datasource:
+    url: jdbc:mysql://localhost:3307/vaadin101
+    username: root
+    password: 1234
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
