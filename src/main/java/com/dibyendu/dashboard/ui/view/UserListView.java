@@ -1,6 +1,7 @@
 package com.dibyendu.dashboard.ui.view;
 
 import com.dibyendu.entity.UserEntity;
+import com.dibyendu.models.CountryCode;
 import com.dibyendu.models.UpdateUserDto;
 import com.dibyendu.service.UserService;
 import com.vaadin.flow.component.Component;
@@ -15,10 +16,7 @@ import com.vaadin.flow.component.contextmenu.SubMenu;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.component.html.H2;
-import com.vaadin.flow.component.html.H3;
-import com.vaadin.flow.component.html.H4;
-import com.vaadin.flow.component.html.Main;
+import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.menubar.MenuBar;
@@ -46,13 +44,7 @@ import java.util.List;
 public class UserListView extends Main {
     private final Grid<UserEntity> userEntityGrid = new Grid<>(UserEntity.class, false);
     private final TextField filterText = new TextField();
-    // Input fields
-    TextField nameField = new TextField("Name");
-    EmailField emailField = new EmailField("Email");
-    // Country code dropdown + phone number field
-    Select<String> countryCodeSelect = new Select<>();
-    NumberField phoneField = new NumberField("Phone number");
-    PasswordField passwordField = new PasswordField("Password");
+
     private final UserService userService;
     public UserListView(UserService userService) {
         this.userService = userService;
@@ -70,7 +62,7 @@ public class UserListView extends Main {
         addUser.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 //        Button addUser = createUserDialog();
         addUser.addClassName("add-user-btn");
-        addUser.addClickListener(e -> openAddUserDialog());
+        addUser.addClickListener(e -> userDtlsDialog("Add user", new UserEntity()).open());
 
         HorizontalLayout header = new HorizontalLayout(titleNdDesc, addUser, changeThemeButton);
         header.setMargin(true);
@@ -136,9 +128,13 @@ public class UserListView extends Main {
 
     private void configureGrid() {
         userEntityGrid.addClassName("user-grid");
+        userEntityGrid.setEmptyStateText("No users found.");
         userEntityGrid.setSizeFull();
         userEntityGrid.setAllRowsVisible(true);
-        userEntityGrid.setColumns("name","phoneNumber","email");
+        userEntityGrid.setColumns("name","email","role");
+        userEntityGrid.addColumn(userEntity ->
+                userEntity.getCountryCode() + userEntity.getPhoneNumber()
+        ).setHeader("Phone number");
         userEntityGrid.addComponentColumn(userEntity -> {
             MenuBar menuBar = new MenuBar();
             menuBar.addThemeVariants(MenuBarVariant.LUMO_TERTIARY_INLINE);
@@ -154,7 +150,7 @@ public class UserListView extends Main {
 
             // Update option
             subMenu.addItem("Update", e -> {
-                openUpdateUserDialog(userEntity); // You’ll define this method below
+                userDtlsDialog("Update user details",userEntity).open(); // You’ll define this method below
             });
 
             // Delete option
@@ -195,182 +191,155 @@ public class UserListView extends Main {
         userEntityGrid.setItems(userEntityList);
     }
 
-    private void openUpdateUserDialog(UserEntity userEntity) {
+    private Dialog userDtlsDialog(String dialogTitle, UserEntity userEntity){
         Dialog dialog = new Dialog();
-        dialog.setHeaderTitle("Update user details");
+        dialog.setHeaderTitle(dialogTitle);
 
-        TextField updatedNameField = new TextField();
-        updatedNameField.setValue(userEntity.getName());
-        updatedNameField.setWidthFull();
-
-        EmailField updatedEmailField = new EmailField();
-        updatedEmailField.setValue(userEntity.getEmail());
-        updatedEmailField.setWidthFull();
-        updatedEmailField.setErrorMessage("Please enter a valid email");
-
-        String fullPhone = userEntity.getPhoneNumber();
-        String countryCode = "+91";
-        String phoneNumber = "";
-        if (fullPhone.startsWith("+1")) {
-            countryCode = "+1 (US)";
-            phoneNumber = fullPhone.substring(2);
-        } else if (fullPhone.startsWith("+44")) {
-            countryCode = "+44 (UK)";
-            phoneNumber = fullPhone.substring(3);
-        } else if (fullPhone.startsWith("+91")) {
-            countryCode = "+91 (IN)";
-            phoneNumber = fullPhone.substring(3);
-        } else if (fullPhone.startsWith("+61")) {
-            countryCode = "+61 (AU)";
-            phoneNumber = fullPhone.substring(3);
-        } else if (fullPhone.startsWith("+81")) {
-            countryCode = "+81 (JP)";
-            phoneNumber = fullPhone.substring(3);
-        }
-
-        Select<String> updatedCountryCodeSelect = new Select<>();
-        updatedCountryCodeSelect.setLabel("Country Code");
-        updatedCountryCodeSelect.setItems("+1 (US)", "+44 (UK)", "+91 (IN)", "+61 (AU)", "+81 (JP)");
-        updatedCountryCodeSelect.setValue(countryCode);
-        updatedCountryCodeSelect.setWidth("130px");
-
-//        phoneField.setLabel("Phone Number");
-        NumberField updatedPhoneField = new NumberField();
-        updatedPhoneField.setValue(Double.valueOf(phoneNumber));
-        phoneField.setWidthFull();
-
-        HorizontalLayout updatedPhoneLayout = new HorizontalLayout(countryCodeSelect, phoneField);
-        updatedPhoneLayout.setWidthFull();
-        updatedPhoneLayout.setFlexGrow(1, phoneField);
-        updatedPhoneLayout.setAlignItems(FlexComponent.Alignment.END);
-
-        String updatedPhoneVal = String.format("%.0f", updatedPhoneField.getValue());
-        String updatedFullPhone = updatedCountryCodeSelect.getValue().split(" ")[0]  + updatedPhoneVal;
-
-        FormLayout formLayout = new FormLayout(nameField, emailField, updatedPhoneLayout);
-        formLayout.setWidth("400px");
-        formLayout.setResponsiveSteps(
-                new FormLayout.ResponsiveStep("0", 1)
-        );
-
-        Button updateButton = new Button("update");
-        Button cancelButton = new Button("cancel");
-
-        updateButton.addClickListener(
-                e -> {
-                    UpdateUserDto updateUserDto = new UpdateUserDto();
-                    updateUserDto.setId(userEntity.getId());
-                    updateUserDto.setEmail(updatedEmailField.getValue());
-                    updateUserDto.setPhone(updatedFullPhone);
-
-                    boolean update = userService.update(updateUserDto);
-                    if (update){
-                        Notification successfulUpdateNotif = Notification.show("User updated");
-                        successfulUpdateNotif.addThemeVariants(NotificationVariant.LUMO_SUCCESS);
-                        successfulUpdateNotif.setPosition(Notification.Position.TOP_END);
-                    }else {
-                        Notification unSuccessfulUpdateNotif = Notification.show("Error while updating user");
-                        unSuccessfulUpdateNotif.addThemeVariants(NotificationVariant.LUMO_ERROR);
-                        unSuccessfulUpdateNotif.setPosition(Notification.Position.TOP_END);
-                    }
-                }
-        );
-        HorizontalLayout buttonLayout = new HorizontalLayout(updateButton, cancelButton);
-        buttonLayout.setWidthFull(); // full width footer
-        buttonLayout.setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
-        buttonLayout.setAlignItems(FlexComponent.Alignment.CENTER);
-        buttonLayout.setSpacing(true);
-        buttonLayout.getStyle().set("margin-top", "var(--lumo-space-m)");
-
-        VerticalLayout dialogLayout = new VerticalLayout(formLayout);
-        dialogLayout.setPadding(false);
-        dialogLayout.setSpacing(false);
-        dialogLayout.setAlignItems(FlexComponent.Alignment.STRETCH);
-
-        dialog.add(dialogLayout);
-        dialog.getFooter().add(buttonLayout);
-        dialog.open();
-    }
-
-    private void openAddUserDialog() {
-        Dialog dialog = new Dialog();
-        dialog.setHeaderTitle("Add New User");
-//        dialog.setModal(true);
-        dialog.setResizable(false);
-//        dialog.setDraggable(true);
-
-
-        nameField.setPlaceholder("Enter name");
+        TextField nameField = new TextField("Name");
         nameField.setWidthFull();
 
-        emailField.setPlaceholder("Enter email");
+        EmailField emailField = new EmailField("Email");
         emailField.setWidthFull();
-        emailField.setErrorMessage("Please enter a valid email");
 
-
-        countryCodeSelect.setLabel("Country Code");
-        countryCodeSelect.setItems("+1 (US)", "+44 (UK)", "+91 (IN)", "+61 (AU)", "+81 (JP)");
-        countryCodeSelect.setValue("+91 (IN)");
+        Select<CountryCode> countryCodeSelect = new Select<>();
         countryCodeSelect.setWidth("130px");
+        countryCodeSelect.setLabel("Country code");
+        countryCodeSelect.setItems(
+                new CountryCode("+1", "US"),
+                new CountryCode("+44", "UK"),
+                new CountryCode("+91", "IN"),
+                new CountryCode("+61", "AU"),
+                new CountryCode("+81", "JP")
+        );
+        countryCodeSelect.setValue(new CountryCode("+91", "IN"));
 
-//        phoneField.setLabel("Phone Number");
-        phoneField.setPlaceholder("Enter phone number");
-        phoneField.setWidthFull();
+        Select<String> userRoleSelect = new Select<>();
+        userRoleSelect.setPlaceholder("Select user role");
+        userRoleSelect.setItems("user","reviewer");
+        userRoleSelect.setWidthFull();
 
-        HorizontalLayout phoneLayout = new HorizontalLayout(countryCodeSelect, phoneField);
-        phoneLayout.setWidthFull();
-        phoneLayout.setFlexGrow(1, phoneField);
-        phoneLayout.setAlignItems(FlexComponent.Alignment.END);
+        NumberField phoneNumberField = new NumberField("Phone Number");
+        phoneNumberField.setWidthFull();
 
-//        passwordField.setLabel("Password");
-        passwordField.setPlaceholder("Enter password");
-//        passwordField.setTooltipText("Tooltip text");
+        PasswordField passwordField = new PasswordField("Password");
+        passwordField.setWidthFull();
         passwordField.setClearButtonVisible(true);
         passwordField.setPrefixComponent(VaadinIcon.LOCK.create());
-        passwordField.setWidthFull();
 
-        // Form layout
-        FormLayout formLayout = new FormLayout(nameField, emailField, passwordField, phoneLayout);
-        formLayout.setWidth("400px");
-        formLayout.setResponsiveSteps(
-                new FormLayout.ResponsiveStep("0", 1)
-        );
+        HorizontalLayout phoneLayout = new HorizontalLayout(countryCodeSelect, phoneNumberField);
+        phoneLayout.setWidthFull();
+        phoneLayout.setFlexGrow(1, phoneNumberField);
+        phoneLayout.setAlignItems(FlexComponent.Alignment.END);
 
-        // Buttons
-        Button saveButton = new Button("Save", new Icon(VaadinIcon.CHECK));
+        Button saveButton = new Button("Add");
         saveButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-        saveButton.addClassName("add-user-btn");
-        saveButton.addClickListener(e -> {
-            if (nameField.isEmpty() || emailField.isEmpty() || passwordField.isEmpty() || phoneField.isEmpty()) {
-                Notification.show("Name, Email, phone number are required!");
-            } else {
-                String phoneValue = String.format("%.0f", phoneField.getValue());
-                String fullPhone = countryCodeSelect.getValue().split(" ")[0]  + phoneValue;
 
-                log.info("Setting values for user entity.");
-                UserEntity userEntity = new UserEntity();
-                userEntity.setName(nameField.getValue());
-                userEntity.setEmail(emailField.getValue());
-                userEntity.setPassword(passwordField.getValue());
-                userEntity.setPhoneNumber(fullPhone);
-
-                log.info(userEntity.toString());
-                UserEntity savedUser = userService.save(userEntity);
-
-                if (savedUser.getId() != null){
-                    Notification.show("User added: " + nameField.getValue() + " (" + fullPhone + ")").setPosition(Notification.Position.TOP_STRETCH);
-                    userEntityGrid.setItems(userService.findAll());
-                    dialogClose(dialog);
-                }
-
-            }
-        });
-
-        Button cancelButton = new Button("Cancel", new Icon(VaadinIcon.CLOSE));
+        Button cancelButton = new Button("Cancel");
+        cancelButton.addThemeVariants(ButtonVariant.LUMO_WARNING);
+        cancelButton.addClickListener(e -> dialogClose(dialog));
         cancelButton.addThemeVariants(ButtonVariant.LUMO_WARNING);
         cancelButton.addClickListener(e -> dialogClose(dialog));
 
-// --- Footer Layout ---
+        FormLayout formLayout;
+
+        if (userEntity.getId()!=null){
+            nameField.setValue(userEntity.getName());
+            emailField.setValue(userEntity.getEmail());
+//            countryCode.setValue(userEntity.getCountryCode());
+            phoneNumberField.setPrefixComponent(new Span(userEntity.getCountryCode()));
+            phoneNumberField.setValue(Double.valueOf(userEntity.getPhoneNumber()));
+            userRoleSelect.setValue(userEntity.getRole());
+            saveButton.setText("update");
+
+            formLayout = new FormLayout(nameField, emailField, phoneNumberField, userRoleSelect);
+
+            // functionality of updating user
+            saveButton.addClickListener(
+                    updateClickEvent->{
+                        UpdateUserDto updateUserDto = new UpdateUserDto();
+                        updateUserDto.setId(userEntity.getId());
+                        updateUserDto.setEmail(emailField.getValue());
+                        updateUserDto.setPhone(String.format("%.0f", phoneNumberField.getValue()));
+                        updateUserDto.setName(nameField.getValue());
+                        updateUserDto.setRole(userRoleSelect.getValue());
+                        boolean update = userService.update(updateUserDto);
+                        if (update){
+                            Notification successfulUpdateNotif = Notification.show("User updated");
+                            successfulUpdateNotif.addThemeVariants(NotificationVariant.LUMO_SUCCESS);
+                            successfulUpdateNotif.setPosition(Notification.Position.TOP_CENTER);
+                            userEntityGrid.setItems(userService.findAll());
+                            dialogClose(dialog);
+                        }else {
+                            Notification unSuccessfulUpdateNotif = Notification.show("Error while updating user");
+                            unSuccessfulUpdateNotif.addThemeVariants(NotificationVariant.LUMO_ERROR);
+                            unSuccessfulUpdateNotif.setPosition(Notification.Position.TOP_CENTER);
+                        }
+                    }
+            );
+        }else {
+            nameField.setPlaceholder("Enter full name");
+            emailField.setPlaceholder("Enter email address");
+            passwordField.setPlaceholder("Enter password");
+            countryCodeSelect.setPlaceholder("Select country code");
+            phoneNumberField.setPlaceholder("Enter phone number");
+            userRoleSelect.setPlaceholder("Select user role");
+
+            formLayout = new FormLayout(nameField, emailField, passwordField, phoneLayout, userRoleSelect);
+
+            // Functionality of adding user
+            saveButton.addClickListener(
+                    buttonClickEvent -> {
+                        if (nameField.isEmpty() || emailField.isEmpty() || passwordField.isEmpty() || phoneNumberField.isEmpty()) {
+                            Notification.show("Name, Email, phone number are required!");
+                        } else {
+                            String phoneValue = String.format("%.0f", phoneNumberField.getValue());
+
+                            log.info("Setting values for user entity.");
+                            userEntity.setName(nameField.getValue());
+                            userEntity.setEmail(emailField.getValue());
+                            userEntity.setPassword(passwordField.getValue());
+                            userEntity.setPhoneNumber(phoneValue);
+                            userEntity.setCountryCode(countryCodeSelect.getValue().getCode());
+                            userEntity.setRole(userRoleSelect.getValue());
+                            log.info(userEntity.toString());
+                            UserEntity savedUser = userService.save(userEntity);
+
+                            if (savedUser.getId() != null){
+
+                                Notification userCreateNotification = new Notification();
+                                userCreateNotification.setPosition(Notification.Position.TOP_CENTER);
+                                userCreateNotification.addThemeVariants(NotificationVariant.LUMO_SUCCESS);
+
+                                Icon userCreateNotificationIcon = VaadinIcon.CHECK_CIRCLE.create();
+                                Text userCreateNotificationText = new Text("User added: "+emailField.getValue());
+                                HorizontalLayout userCreateNotificationLayout = new HorizontalLayout(userCreateNotificationIcon, userCreateNotificationText);
+                                userCreateNotificationLayout.setAlignItems(FlexComponent.Alignment.CENTER);
+
+                                userCreateNotification.add(userCreateNotificationLayout);
+                                userCreateNotification.setDuration(3000);
+                                userCreateNotification.open();
+
+                                userEntityGrid.setItems(userService.findAll());
+                                dialogClose(dialog);
+                            }else {
+                                Notification errorNotif = Notification.show("Error while adding user");
+                                errorNotif.addThemeVariants(NotificationVariant.LUMO_ERROR);
+                                errorNotif.setPosition(Notification.Position.TOP_CENTER);
+                            }
+
+                        }
+                    }
+            );
+        }
+
+        formLayout.setWidth("400px");
+        formLayout.setResponsiveSteps(
+                new FormLayout.ResponsiveStep("0", 1)
+        );
+
+
+
+        // --- Footer Layout ---
         HorizontalLayout buttonLayout = new HorizontalLayout(saveButton, cancelButton);
         buttonLayout.setWidthFull(); // full width footer
         buttonLayout.setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
@@ -384,18 +353,19 @@ public class UserListView extends Main {
         dialogLayout.setSpacing(false);
         dialogLayout.setAlignItems(FlexComponent.Alignment.STRETCH);
 
-// --- Add to dialog ---
         dialog.add(dialogLayout);
         dialog.getFooter().add(buttonLayout);
-        dialog.open();
+
+        return dialog;
+
     }
 
     private void dialogClose(Dialog dialog){
-        nameField.clear();
-        emailField.clear();
-        phoneField.clear();
-        passwordField.clear();
-        countryCodeSelect.setValue("+91 (IN)");
+//        nameField.clear();
+//        emailField.clear();
+//        phoneField.clear();
+//        passwordField.clear();
+//        countryCodeSelect.setValue("+91 (IN)");
         dialog.close();
     }
 }

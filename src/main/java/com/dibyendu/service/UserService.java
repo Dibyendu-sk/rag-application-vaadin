@@ -48,6 +48,7 @@ public class UserService {
         userEntity.setEmail(updateUserDto.getEmail());
         userEntity.setPhoneNumber(updateUserDto.getPhone());
         userEntity.setName(updateUserDto.getName());
+        userEntity.setRole(updateUserDto.getRole());
 
         userRepo.save(userEntity);
 
