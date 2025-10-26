@@ -1,9 +1,10 @@
-package com.dibyendu.dashboard.ui.view;
+package com.dibyendu.views.userList;
 
 import com.dibyendu.entity.UserEntity;
 import com.dibyendu.models.CountryCode;
 import com.dibyendu.models.UpdateUserDto;
 import com.dibyendu.service.UserService;
+import com.dibyendu.views.MainLayout;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.UI;
@@ -40,7 +41,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.List;
 
 @Slf4j
-@Route("/users")
+@Route(value = "/users", layout = MainLayout.class)
 public class UserListView extends Main {
     private final Grid<UserEntity> userEntityGrid = new Grid<>(UserEntity.class, false);
     private final TextField filterText = new TextField();

@@ -1,5 +1,6 @@
 package com.dibyendu.dashboard.ui.view;
 
+import com.dibyendu.views.MainLayout;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Main;
 import com.vaadin.flow.component.notification.Notification;
@@ -11,7 +12,7 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
 
 @Route
-@RouteAlias("")
+@RouteAlias(value = "/", layout = MainLayout.class)
 public class DashboardView extends Main {
     public DashboardView(){
         Button button1 = new Button("Hello");

@@ -14,34 +14,70 @@
   --lumo-body-text-color: rgba(20, 20, 22, 1);
   --lumo-secondary-text-color: rgba(90, 90, 95, 1);
   --lumo-contrast: rgba(0, 0, 0, 1);
+  --lumo-contrast-5pct: rgba(0, 0, 0, 0.05);
+  --lumo-contrast-10pct: rgba(0, 0, 0, 0.1);
+  --lumo-contrast-20pct: rgba(0, 0, 0, 0.2);
+  --lumo-contrast-30pct: rgba(0, 0, 0, 0.3);
+  --lumo-contrast-40pct: rgba(0, 0, 0, 0.4);
+  --lumo-contrast-50pct: rgba(0, 0, 0, 0.5);
+  --lumo-contrast-60pct: rgba(0, 0, 0, 0.6);
+  --lumo-contrast-70pct: rgba(0, 0, 0, 0.7);
+  --lumo-contrast-80pct: rgba(0, 0, 0, 0.8);
+  --lumo-contrast-90pct: rgba(0, 0, 0, 0.9);
 
   /* Primary (muted indigo) */
   --lumo-primary-color: rgba(98, 86, 196, 1);
   --lumo-primary-color-50pct: rgba(98, 86, 196, 0.5);
   --lumo-primary-color-10pct: rgba(98, 86, 196, 0.1);
   --lumo-primary-text-color: rgba(255, 255, 255, 1);
+  --lumo-primary-contrast-color: rgba(255, 255, 255, 1);
 
   /* Success (teal-green) */
   --lumo-success-color: rgba(52, 199, 89, 1);
   --lumo-success-color-50pct: rgba(52, 199, 89, 0.5);
   --lumo-success-color-10pct: rgba(52, 199, 89, 0.1);
   --lumo-success-text-color: rgba(255, 255, 255, 1);
+  --lumo-success-contrast-color: rgba(255, 255, 255, 1);
 
   /* Error (coral red) */
   --lumo-error-color: rgba(230, 82, 82, 1);
   --lumo-error-color-50pct: rgba(230, 82, 82, 0.5);
   --lumo-error-color-10pct: rgba(230, 82, 82, 0.1);
   --lumo-error-text-color: rgba(255, 255, 255, 1);
+  --lumo-error-contrast-color: rgba(255, 255, 255, 1);
 
   /* Warning (muted amber) */
   --lumo-warning-color: rgba(245, 180, 50, 1);
   --lumo-warning-color-50pct: rgba(245, 180, 50, 0.5);
   --lumo-warning-color-10pct: rgba(245, 180, 50, 0.1);
   --lumo-warning-text-color: rgba(0, 0, 0, 1);
+  --lumo-warning-contrast-color: rgba(0, 0, 0, 1);
 
   /* Tint / Neutral / Accent */
   --lumo-tint: rgba(240, 242, 247, 1);
+  --lumo-tint-5pct: rgba(240, 242, 247, 0.05);
+  --lumo-tint-10pct: rgba(240, 242, 247, 0.1);
+  --lumo-tint-20pct: rgba(240, 242, 247, 0.2);
+  --lumo-tint-30pct: rgba(240, 242, 247, 0.3);
+  --lumo-tint-40pct: rgba(240, 242, 247, 0.4);
+  --lumo-tint-50pct: rgba(240, 242, 247, 0.5);
+  --lumo-tint-60pct: rgba(240, 242, 247, 0.6);
+  --lumo-tint-70pct: rgba(240, 242, 247, 0.7);
+  --lumo-tint-80pct: rgba(240, 242, 247, 0.8);
+  --lumo-tint-90pct: rgba(240, 242, 247, 0.9);
+
   --lumo-shade: rgba(0, 0, 0, 0.1);
+  --lumo-shade-5pct: rgba(0, 0, 0, 0.05);
+  --lumo-shade-10pct: rgba(0, 0, 0, 0.1);
+  --lumo-shade-20pct: rgba(0, 0, 0, 0.2);
+  --lumo-shade-30pct: rgba(0, 0, 0, 0.3);
+  --lumo-shade-40pct: rgba(0, 0, 0, 0.4);
+  --lumo-shade-50pct: rgba(0, 0, 0, 0.5);
+  --lumo-shade-60pct: rgba(0, 0, 0, 0.6);
+  --lumo-shade-70pct: rgba(0, 0, 0, 0.7);
+  --lumo-shade-80pct: rgba(0, 0, 0, 0.8);
+  --lumo-shade-90pct: rgba(0, 0, 0, 0.9);
+
   --lumo-accent-color: rgba(116, 141, 166, 1);
 
   /* Hover + Focus */
@@ -61,34 +97,70 @@
   --lumo-body-text-color: rgba(232, 233, 235, 1);
   --lumo-secondary-text-color: rgba(160, 162, 165, 1);
   --lumo-contrast: rgba(255, 255, 255, 1);
+  --lumo-contrast-5pct: rgba(255, 255, 255, 0.05);
+  --lumo-contrast-10pct: rgba(255, 255, 255, 0.1);
+  --lumo-contrast-20pct: rgba(255, 255, 255, 0.2);
+  --lumo-contrast-30pct: rgba(255, 255, 255, 0.3);
+  --lumo-contrast-40pct: rgba(255, 255, 255, 0.4);
+  --lumo-contrast-50pct: rgba(255, 255, 255, 0.5);
+  --lumo-contrast-60pct: rgba(255, 255, 255, 0.6);
+  --lumo-contrast-70pct: rgba(255, 255, 255, 0.7);
+  --lumo-contrast-80pct: rgba(255, 255, 255, 0.8);
+  --lumo-contrast-90pct: rgba(255, 255, 255, 0.9);
 
   /* Primary (muted lavender) */
   --lumo-primary-color: rgba(136, 120, 226, 1);
   --lumo-primary-color-50pct: rgba(136, 120, 226, 0.5);
   --lumo-primary-color-10pct: rgba(136, 120, 226, 0.1);
   --lumo-primary-text-color: rgba(255, 255, 255, 1);
+  --lumo-primary-contrast-color: rgba(255, 255, 255, 1);
 
   /* Success */
   --lumo-success-color: rgba(74, 222, 128, 1);
   --lumo-success-color-50pct: rgba(74, 222, 128, 0.5);
   --lumo-success-color-10pct: rgba(74, 222, 128, 0.1);
   --lumo-success-text-color: rgba(0, 0, 0, 1);
+  --lumo-success-contrast-color: rgba(0, 0, 0, 1);
 
   /* Error */
   --lumo-error-color: rgba(239, 83, 80, 1);
   --lumo-error-color-50pct: rgba(239, 83, 80, 0.5);
   --lumo-error-color-10pct: rgba(239, 83, 80, 0.1);
   --lumo-error-text-color: rgba(255, 255, 255, 1);
+  --lumo-error-contrast-color: rgba(255, 255, 255, 1);
 
   /* Warning */
   --lumo-warning-color: rgba(255, 193, 7, 1);
   --lumo-warning-color-50pct: rgba(255, 193, 7, 0.5);
   --lumo-warning-color-10pct: rgba(255, 193, 7, 0.1);
   --lumo-warning-text-color: rgba(0, 0, 0, 1);
+  --lumo-warning-contrast-color: rgba(0, 0, 0, 1);
 
   /* Tint / Neutral / Accent */
   --lumo-tint: rgba(35, 36, 38, 1);
+  --lumo-tint-5pct: rgba(255, 255, 255, 0.05);
+  --lumo-tint-10pct: rgba(255, 255, 255, 0.1);
+  --lumo-tint-20pct: rgba(255, 255, 255, 0.2);
+  --lumo-tint-30pct: rgba(255, 255, 255, 0.3);
+  --lumo-tint-40pct: rgba(255, 255, 255, 0.4);
+  --lumo-tint-50pct: rgba(255, 255, 255, 0.5);
+  --lumo-tint-60pct: rgba(255, 255, 255, 0.6);
+  --lumo-tint-70pct: rgba(255, 255, 255, 0.7);
+  --lumo-tint-80pct: rgba(255, 255, 255, 0.8);
+  --lumo-tint-90pct: rgba(255, 255, 255, 0.9);
+
   --lumo-shade: rgba(255, 255, 255, 0.1);
+  --lumo-shade-5pct: rgba(0, 0, 0, 0.05);
+  --lumo-shade-10pct: rgba(0, 0, 0, 0.1);
+  --lumo-shade-20pct: rgba(0, 0, 0, 0.2);
+  --lumo-shade-30pct: rgba(0, 0, 0, 0.3);
+  --lumo-shade-40pct: rgba(0, 0, 0, 0.4);
+  --lumo-shade-50pct: rgba(0, 0, 0, 0.5);
+  --lumo-shade-60pct: rgba(0, 0, 0, 0.6);
+  --lumo-shade-70pct: rgba(0, 0, 0, 0.7);
+  --lumo-shade-80pct: rgba(0, 0, 0, 0.8);
+  --lumo-shade-90pct: rgba(0, 0, 0, 0.9);
+
   --lumo-accent-color: rgba(135, 150, 160, 1);
 
   --lumo-hover-opacity: 0.2;
@@ -107,6 +179,72 @@ vaadin-app-layout {
   color: var(--lumo-body-text-color);
   font-family: var(--lumo-font-family);
   transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* =========================================================
+   APP LAYOUT & NAVIGATION
+========================================================= */
+/* Drawer/Sidebar background */
+vaadin-app-layout::part(drawer) {
+  background-color: var(--lumo-base-color);
+  border-right: 1px solid var(--lumo-contrast-10pct);
+}
+
+/* Navbar background */
+vaadin-app-layout::part(navbar) {
+  background-color: var(--lumo-base-color);
+  border-bottom: 1px solid var(--lumo-contrast-10pct);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Navigation items (tabs, links, etc.) */
+vaadin-tab,
+vaadin-side-nav-item,
+vaadin-list-box vaadin-item {
+  color: var(--lumo-body-text-color);
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+/* Hover state for navigation items */
+vaadin-tab:hover,
+vaadin-side-nav-item:hover,
+vaadin-list-box vaadin-item:hover {
+  background-color: var(--lumo-contrast-5pct);
+  color: var(--lumo-primary-color);
+}
+
+/* Selected/Active navigation items */
+vaadin-tab[selected],
+vaadin-side-nav-item[selected],
+vaadin-list-box vaadin-item[selected] {
+  background-color: var(--lumo-primary-color-10pct);
+  color: var(--lumo-primary-color);
+  font-weight: 600;
+}
+
+/* Navigation item icons */
+vaadin-tab vaadin-icon,
+vaadin-side-nav-item vaadin-icon,
+vaadin-list-box vaadin-item vaadin-icon {
+  color: var(--lumo-secondary-text-color);
+}
+
+vaadin-tab[selected] vaadin-icon,
+vaadin-side-nav-item[selected] vaadin-icon,
+vaadin-list-box vaadin-item[selected] vaadin-icon {
+  color: var(--lumo-primary-color);
+}
+
+/* Links in navigation */
+a {
+  color: var(--lumo-primary-color);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--lumo-primary-color-50pct);
+  text-decoration: underline;
 }
 
 /* =========================================================
@@ -209,17 +347,50 @@ vaadin-select {
   --lumo-border-radius: var(--lumo-border-radius);
 }
 
+/* Input field borders and backgrounds */
+vaadin-text-field::part(input-field),
+vaadin-email-field::part(input-field),
+vaadin-password-field::part(input-field),
+vaadin-number-field::part(input-field),
+vaadin-combo-box::part(input-field),
+vaadin-select::part(toggle-button) {
+  background-color: var(--lumo-base-color);
+  border: 1px solid var(--lumo-contrast-20pct);
+  color: var(--lumo-body-text-color);
+}
+
+/* Input field focus state */
+vaadin-text-field:focus-within::part(input-field),
+vaadin-email-field:focus-within::part(input-field),
+vaadin-password-field:focus-within::part(input-field),
+vaadin-number-field:focus-within::part(input-field),
+vaadin-combo-box:focus-within::part(input-field) {
+  border-color: var(--lumo-primary-color);
+  box-shadow: 0 0 0 2px var(--lumo-focus-ring-color);
+}
+
 /* =========================================================
    DIALOG
 ========================================================= */
 vaadin-dialog-overlay::part(overlay) {
-  background: var(--lumo-tint);
+  background: var(--lumo-base-color);
   color: var(--lumo-body-text-color);
   border-radius: var(--lumo-border-radius);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--lumo-contrast-10pct);
 }
+
+/* Dialog header */
+vaadin-dialog-overlay::part(header) {
+  color: var(--lumo-body-text-color);
+  border-bottom: 1px solid var(--lumo-contrast-10pct);
+}
+
+/* =========================================================
+   UTILITY CLASSES
+========================================================= */
 .round-icon-btn {
-  --button-size: 36px; /* adjust as needed */
+  --button-size: 36px;
   width: var(--button-size);
   height: var(--button-size);
   min-width: var(--button-size);
@@ -229,4 +400,12 @@ vaadin-dialog-overlay::part(overlay) {
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: var(--lumo-contrast-5pct);
+  color: var(--lumo-body-text-color);
+  border: 1px solid var(--lumo-contrast-10pct);
+}
+
+.round-icon-btn:hover {
+  background-color: var(--lumo-contrast-10pct);
+  border-color: var(--lumo-contrast-20pct);
 }
